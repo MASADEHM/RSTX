@@ -1,0 +1,78 @@
+Here is a step-by-step explanation of how the selected `businessCategory` is passed to the `ActivitySelectionStep` component.
+
+The entire process is managed by the parent component, `CompanySetup.tsx`, which holds the state for the whole form.
+
+### Data Flow Summary
+
+1.  **State Initialization**: In `CompanySetup.tsx`, a state variable `companyData` is created to hold all the setup information. Initially, `businessCategory` is `null`.
+
+    ```tsx
+    // In CompanySetup.tsx
+    const [companyData, setCompanyData] = useState<CompanySetupData>({
+      businessCategory: null,
+      activity: [],
+      // ...other properties
+    });
+    ```
+
+2.  **Step 1: Selecting the Business Category**:
+    *   The first step renders the `BusinessCategoryStep` component.
+    *   When you select a category and click "Next", its `onNext` function is called.
+    *   This `onNext` function is defined in `CompanySetup.tsx`. It updates the `companyData` state with the selected category and changes the `currentStep` to `1`.
+
+    ```tsx
+    // In CompanySetup.tsx, inside the 'steps' array
+    {
+      title: "Business Category",
+      content: (
+        <BusinessCategoryStep
+          data={companyData}
+          onNext={(category) => {
+            // This updates the state in the parent component
+            setCompanyData({ ...companyData, businessCategory: category });
+            setCurrentStep(1);
+          }}
+        />
+      ),
+    },
+    ```
+
+3.  **Step 2: Passing the Category to Activity Selection**:
+    *   Because the `currentStep` is now `1`, React re-renders `CompanySetup.tsx` and displays the `ActivitySelectionStep` component.
+    *   The `businessCategory` that was just saved in the `companyData` state is now passed directly as a prop to `ActivitySelectionStep`.
+
+    ```tsx
+    // In CompanySetup.tsx, inside the 'steps' array
+    {
+      title: "Activity Selection",
+      content: (
+        <ActivitySelectionStep
+          // The updated category is passed down as a prop
+          businessCategory={companyData.businessCategory}
+          selectedActivity={companyData.activity}
+          // ... other props
+        />
+      ),
+    },
+    ```
+
+4.  **Step 3: Receiving and Using the Category**:
+    *   The `ActivitySelectionStep` component receives `businessCategory` through its props.
+    *   A `useEffect` hook inside `ActivitySelectionStep` is set up to "listen" for changes to the `businessCategory` prop. When this prop changes (i.e., when it's no longer `null`), the hook runs, finds the correct list of activities from `activitiesByCategory`, and updates its own local state (`activities`) to populate the dropdown.
+
+    ```tsx
+    // In ActivitySelectionStep.tsx
+    const ActivitySelectionStep: React.FC<ActivitySelectionStepProps> = ({ businessCategory, ... }) => {
+      // ...
+      useEffect(() => {
+        // This code runs when the businessCategory prop changes
+        if (businessCategory && activitiesByCategory[businessCategory.id]) {
+          setActivities(activitiesByCategory[businessCategory.id]);
+        } else {
+          setActivities([]);
+        }
+      }, [businessCategory, ...]); // Dependency array includes businessCategory
+      // ...
+    };
+    ```
+The diagram of the flow is also available in our chat history if you need it. 
