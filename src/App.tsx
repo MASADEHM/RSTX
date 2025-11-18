@@ -10,9 +10,9 @@ const { Content } = Layout;
 const App = () => {
   return (
     <Provider store={store}>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: '100vh', background: 'transparent' }}>
         <Menu />
-        <Content style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+        <Content style={{ maxWidth: 1200, margin: '0 auto', width: '100%', background: 'transparent' }}>
           <main>
             <Outlet />
           </main>

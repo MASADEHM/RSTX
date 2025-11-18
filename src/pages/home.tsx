@@ -1,147 +1,98 @@
 import React from 'react';
-import { Card, Row, Col, Typography, Steps, List } from 'antd';
-import { CheckCircleOutlined, BankOutlined, TeamOutlined, GlobalOutlined } from '@ant-design/icons';
-import HeroSlider from '../shared/HeroSlider';
+import { Typography, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
-const { Step } = Steps;
 
 const Home: React.FC = () => {
-    const licenseTypes = [
-        {
-            title: 'FZE (Free Zone Establishment)',
-            description: 'Single shareholder company structure, ideal for individual entrepreneurs and small businesses.',
-            features: [
-                '100% foreign ownership',
-                'Single shareholder',
-                'Limited liability',
-                'Tax exemption',
-                'Full repatriation of profits'
-            ]
-        },
-        {
-            title: 'FZCO (Free Zone Company)',
-            description: 'Multiple shareholder company structure, perfect for partnerships and larger businesses.',
-            features: [
-                '100% foreign ownership',
-                'Multiple shareholders (2-50)',
-                'Limited liability',
-                'Tax exemption',
-                'Full repatriation of profits'
-            ]
-        },
-        {
-            title: 'Business Center License',
-            description: 'Flexible business setup option for companies looking to establish a presence in Dubai.',
-            features: [
-                'Virtual office solutions',
-                'Business support services',
-                'Flexible workspace options',
-                'Access to business facilities',
-                'Professional business address'
-            ]
-        }
-    ];
-
-    const benefits = [
-        'Strategic location in Dubai',
-        '100% foreign ownership',
-        'Tax-free environment',
-        'Full repatriation of profits',
-        'Modern infrastructure',
-        'Access to global markets',
-        'Business-friendly regulations',
-    ];
+    const navigate = useNavigate();
 
     return (
         <>
-            <HeroSlider />
-
-            <div style={{ maxWidth: 1200, margin: '0 auto', marginTop: 32 }}>
-                {/* License Types */}
-                <Title level={2} className="text-center mb-4">Choose Your License Type</Title>
-                <Row gutter={[24, 24]} className="mb-5">
-                    {licenseTypes.map((type, index) => (
-                        <Col xs={24} md={8} key={index}>
-                            <Card 
-                                title={type.title}
-                                className="h-100"
-                                hoverable
-                            >
-                                <Paragraph>{type.description}</Paragraph>
-                                <List
-                                    dataSource={type.features}
-                                    renderItem={item => (
-                                        <List.Item>
-                                            <CheckCircleOutlined style={{ color: '#52c41a', marginRight: 8 }} />
-                                            {item}
-                                        </List.Item>
-                                    )}
-                                />
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-
-                {/* Benefits Section */}
-                <Card className="mb-5">
-                    <Title level={2} className="text-center mb-4">Why Choose PCFC?</Title>
-                    <Row gutter={[24, 24]}>
-                        <Col xs={24} md={12}>
-                            <List
-                                dataSource={benefits}
-                                renderItem={item => (
-                                    <List.Item>
-                                        <CheckCircleOutlined style={{ color: '#52c41a', marginRight: 8 }} />
-                                        {item}
-                                    </List.Item>
-                                )}
-                            />
-                        </Col>
-                        <Col xs={24} md={12}>
-                            <div className="p-4 bg-light rounded">
-                                <Title level={4}>Quick Setup Process</Title>
-                                <Steps direction="vertical" current={-1}>
-                                    <Step title="Choose License Type" description="Select the most suitable license for your business" />
-                                    <Step title="Submit Documents" description="Provide required documentation" />
-                                    <Step title="Pay Fees" description="Complete payment for license and services" />
-                                    <Step title="Start Operations" description="Begin your business activities" />
-                                </Steps>
-                            </div>
-                        </Col>
-                    </Row>
-                </Card>
-
-                {/* Features Section */}
-                <Row gutter={[24, 24]} className="mb-5">
-                    <Col xs={24} md={8}>
-                        <Card>
-                            <BankOutlined style={{ fontSize: '2rem', color: '#1890ff' }} />
-                            <Title level={4}>Business Support</Title>
-                            <Paragraph>
-                                Comprehensive business support services including banking, legal, and administrative assistance.
-                            </Paragraph>
-                        </Card>
-                    </Col>
-                    <Col xs={24} md={8}>
-                        <Card>
-                            <TeamOutlined style={{ fontSize: '2rem', color: '#1890ff' }} />
-                            <Title level={4}>Networking</Title>
-                            <Paragraph>
-                                Access to a vibrant business community and networking opportunities with other companies.
-                            </Paragraph>
-                        </Card>
-                    </Col>
-                    <Col xs={24} md={8}>
-                        <Card>
-                            <GlobalOutlined style={{ fontSize: '2rem', color: '#1890ff' }} />
-                            <Title level={4}>Global Reach</Title>
-                            <Paragraph>
-                                Strategic location providing easy access to markets in the Middle East, Africa, and Asia.
-                            </Paragraph>
-                        </Card>
-                    </Col>
-                </Row>
+            <div 
+                style={{
+                    width: '100vw',
+                    height: '100vh',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: -10,
+                    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                }}
+            />
+            <div 
+                style={{ 
+                    height: '100vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    textAlign: 'left',
+                    color: 'white',
+                    padding: '0 60px'
+                }}
+            >
+                <div style={{ maxWidth: '800px' }}>
+                    <Title 
+                        level={1} 
+                        style={{ 
+                            color: 'white', 
+                            fontSize: '3.5rem',
+                            fontWeight: 'bold',
+                            marginBottom: '1.5rem',
+                            textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
+                        }}
+                    >
+                        Automate Your Business Setup
+                    </Title>
+                    <Paragraph 
+                        style={{ 
+                            color: 'white', 
+                            fontSize: '1.4rem',
+                            marginBottom: '2.5rem',
+                            lineHeight: '1.6',
+                            textShadow: '1px 1px 2px rgba(0,0,0,0.7)'
+                        }}
+                    >
+                        Streamline your company registration process with our intelligent automation platform. 
+                    </Paragraph>
+                    <div style={{ display: 'flex', gap: '20px', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+                        <Button 
+                            type="primary" 
+                            size="large"
+                            style={{
+                                backgroundColor: '#1890ff',
+                                borderColor: '#1890ff',
+                                fontSize: '1.1rem',
+                                height: '50px',
+                                padding: '0 30px',
+                                fontWeight: '600'
+                            }}
+                            onClick={() => navigate('/signup')}
+                        >
+                            Start Your Business
+                        </Button>
+                        <Button 
+                            size="large"
+                            style={{
+                                backgroundColor: 'transparent',
+                                borderColor: 'white',
+                                color: 'white',
+                                fontSize: '1.1rem',
+                                height: '50px',
+                                padding: '0 30px',
+                                fontWeight: '600'
+                            }}
+                            onClick={() => navigate('/about')}
+                        >
+                            Learn More
+                        </Button>
+                    </div>
+                </div>
             </div>
         </>
     );

@@ -5,14 +5,9 @@ import About from "../pages/about";
 import { PrivateRoute } from "./privateroutes";
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/login";
-import CompanySetup from "../pages/company/CompanySetup";
 import ContactUs from "../pages/contactus";
 import Signup from "../pages/signup";
-import QuickCostEstimation from "../pages/cost-estimation/QuickCostEstimation";
-import Requests from "@/pages/requests/requests";
-import Dashboard from "@/pages/dashboard";
-import EmployeeLanding from "@/pages/employee/EmployeeLanding";
-import ClientRegistration from "@/pages/employee/ClientRegistration";
+
 
 const publicRoutes: RouteObject[] = [
   {
@@ -35,45 +30,17 @@ const publicRoutes: RouteObject[] = [
         path: "/contact",
         element: <ContactUs />,
       },
-      {
-        path: "/company-setup",
-        element: <CompanySetup />,
-      },
+    
       {
         path: "/signup",
         element: <Signup />,
       },
-      {
-        path: "/cal",
-        element: <QuickCostEstimation />,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
+      
+   
     ],
   },
 ];
-const employeeRoutes: RouteObject[] = [
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "/",
-        element: <EmployeeLanding />,
-      },
-      {
-        path: "/employee",
-        element: <EmployeeLanding />,
-      },
-      {
-        path: "/employee/clients",
-        element: <ClientRegistration />,
-      },
-    ],
-  },
-];
+
 const privateRoute: RouteObject[] = [
   {
     path: "/",
@@ -84,8 +51,8 @@ const privateRoute: RouteObject[] = [
         element: <PrivateRoute />,
         children: [
           {
-            path: "/requests",
-            element: <Requests />,
+            path: "/",
+            element: <Home />,
           },
          
         ],
@@ -93,5 +60,5 @@ const privateRoute: RouteObject[] = [
     ],
   },
 ];
-const TRouter = createBrowserRouter([...publicRoutes, ...privateRoute,...employeeRoutes]);
+const TRouter = createBrowserRouter([...publicRoutes, ...privateRoute]);
 export default TRouter;

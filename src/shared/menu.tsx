@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Layout, Menu as AntMenu } from "antd";
 import { useState } from "react";
 import tokenService from "../services/token.service";
@@ -7,7 +7,9 @@ const { Header } = Layout;
 
 const Menu = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const isLoggedIn = tokenService.LoggedIn();
+  const isHomePage = location.pathname === '/';
   
   const logout = () => {
     tokenService.removeToken();
@@ -29,7 +31,7 @@ const Menu = () => {
     ...Links.map((d) => ({
       key: d.id,
       label: (
-        <Link to={d.path} className="nav-link px-2 link-secondary" >
+        <Link to={d.path} className="nav-link px-2" style={{ color: isHomePage ? "white" : "#222", textDecoration: "none" }}>
           {d.title}
         </Link>
       ),
@@ -38,7 +40,7 @@ const Menu = () => {
       ? {
           key: "login",
           label: (
-            <Link to="/login" className="nav-link px-2 link-secondary" >
+            <Link to="/login" className="nav-link px-2" style={{ color: isHomePage ? "white" : "#222", textDecoration: "none" }}>
               Login
             </Link>
           ),
@@ -46,7 +48,7 @@ const Menu = () => {
       : {
           key: "logout",
           label: (
-            <Link to="/" className="nav-link px-2 link-secondary" onClick={logout}>
+            <Link to="/" className="nav-link px-2" style={{ color: isHomePage ? "white" : "#222", textDecoration: "none" }} onClick={logout}>
               logout
             </Link>
           ),
@@ -54,15 +56,30 @@ const Menu = () => {
   ];
 
   return (
-    <Header style={{ background: "#fff", padding: 0, marginBottom: 24 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: 1200, margin: "0 auto" }}>
-        <Link to="/" className="fw-bold" style={{ fontSize: 24, color: "#222", textDecoration: "none" }}>
+    <Header style={{ 
+      background: isHomePage ? "transparent" : "#fff", 
+      padding: 0, 
+      position: isHomePage ? "absolute" : "relative", 
+      top: isHomePage ? 0 : "auto", 
+      left: isHomePage ? 0 : "auto", 
+      right: isHomePage ? 0 : "auto", 
+      zIndex: isHomePage ? 1000 : "auto", 
+      marginBottom: isHomePage ? 0 : 24 
+    }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+        <Link to="/" className="fw-bold" style={{ fontSize: 24, color: isHomePage ? "white" : "#222", textDecoration: "none" }}>
            BUSINESS HUB
         </Link>
         <AntMenu
           mode="horizontal"
           selectedKeys={[]}
-          style={{ borderBottom: "none", flex: 1, minWidth: 0 }}
+          style={{ 
+            borderBottom: "none", 
+            flex: 1, 
+            minWidth: 0, 
+            background: "transparent",
+            color: isHomePage ? "white" : "#222"
+          }}
           items={menuItems}
         />
       </div>
